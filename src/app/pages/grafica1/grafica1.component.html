@@ -1,1 +1,18 @@
-<p>grafica1 works!</p>
+<div class="row">
+    <div class="col-6">
+        <app-doughnut title="Sales" [chartLabels]="labels1" [chartData]="data1" [chartColors]="colors1"></app-doughnut>
+    </div>
+    <div class="col-6">
+        <app-doughnut title="Compras" [chartLabels]="labels2" [chartData]="data2" [chartColors]="colors2">
+        </app-doughnut>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <app-doughnut title="Stock de productos" [chartLabels]="labels3" [chartData]="data3" [chartColors]="colors3">
+        </app-doughnut>
+    </div>
+    <div class="col-6">
+        <app-doughnut></app-doughnut>
+    </div>
+</div>
