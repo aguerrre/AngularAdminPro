@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../services/settings.service';
 
 // funcion declarada globalmente en los assets (custom.js)
-declare function customInitFunctions():any;
+declare function customInitFunctions(): any;
 
 @Component({
   selector: 'app-pages',
@@ -12,7 +12,7 @@ declare function customInitFunctions():any;
 })
 export class PagesComponent implements OnInit {
 
-  
+
 
   constructor(private settingsService: SettingsService) {
   }
