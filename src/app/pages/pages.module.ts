@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
@@ -13,6 +13,7 @@ import { ProgressComponent } from './progress/progress.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 @NgModule({
@@ -23,11 +24,13 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     PagesComponent,
     AccountSettingsComponent,
     PromisesComponent,
-    RxjsComponent
+    RxjsComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     RouterModule,
     ComponentsModule,

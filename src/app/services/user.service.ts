@@ -6,6 +6,7 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { RegisterForm } from '../interfaces/register-form.interface';
+import { User } from '../models/user.model';
 
 const base_url = environment.base_url;
 declare const google: any;
@@ -15,17 +16,28 @@ declare const google: any;
 })
 export class UserService {
 
+  public user!: User;
+
   constructor(private http: HttpClient, private router: Router, private ngZone: NgZone) { }
 
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  get uid(): string {
+    return this.user.uid || '';
+  }
+
   validateToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
     return this.http.get(`${base_url}/auth/renew`,
       {
         headers: {
-          'x-token': token
+          'x-token': this.token
         }
       }).pipe(
         tap((resp: any) => {
+          const { first_name, email, img, google_auth, role, uid } = resp.user;
+          this.user = new User(first_name, email, '', img, google_auth, role, uid);
           localStorage.setItem('token', resp.token);
         }),
         map(resp => true),
@@ -40,6 +52,18 @@ export class UserService {
           localStorage.setItem('token', resp.token);
         })
       );
+  }
+
+  update(formData: { email: string, first_name: string, role?: string }) {
+    formData = {
+      ...formData,
+      role: this.user.role,
+    };
+    return this.http.put(`${base_url}/users/${this.uid}`, formData, {
+      headers: {
+        'x-token': this.token
+      }
+    });
   }
 
   login(formData: LoginForm) {

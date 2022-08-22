@@ -42,29 +42,15 @@ export class LoginComponent implements AfterViewInit {
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private ngZone: NgZone) { }
 
   ngAfterViewInit(): void {
-    this.googleInit();
+    this.googleButtonInit();
   }
 
-  googleInit() {
-    google.accounts.id.initialize({
-      client_id: "15307362820-d3aks7td6ljrkdo2l9d5d45je6cl7uao.apps.googleusercontent.com",
-      callback: (response: any) => this.handleCredentialResponse(response)
-    });
+  googleButtonInit() {
     google.accounts.id.renderButton(
       //document.getElementById("buttonDiv"),
       this.googleBtn.nativeElement,
       { theme: "outline", size: "large" }  // customization attributes
     );
-  }
-
-  handleCredentialResponse(response: any) {
-    this.userService.loginGoogle(response.credential).subscribe({
-      next: (resp: any) => {
-        this.ngZone.run(() => {
-          this.router.navigateByUrl('/');
-        })
-      }
-    })
   }
 
   notValidField(field: string): boolean {
