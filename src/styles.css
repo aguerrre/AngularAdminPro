@@ -15,3 +15,18 @@
     margin-bottom: 1rem;
     
 }
+
+.w50{
+    width: 50px;
+}
+.w100{
+    width: 100px;
+}
+.w150{
+    width: 150px;
+}
+.avatar{
+    width: 40px;
+    border: 1px solid;
+    border-radius: 100%;
+}
