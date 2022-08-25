@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '../components/components.module';
+import { PipesModule } from '../pipes/pipes.module';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
@@ -15,6 +16,9 @@ import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UsersComponent } from './maintenance/users/users.component';
+import { HospitalsComponent } from './maintenance/hospitals/hospitals.component';
+import { DoctorsComponent } from './maintenance/doctors/doctors.component';
+import { DoctorComponent } from './maintenance/doctors/doctor.component';
 
 
 @NgModule({
@@ -27,7 +31,10 @@ import { UsersComponent } from './maintenance/users/users.component';
     PromisesComponent,
     RxjsComponent,
     UserProfileComponent,
-    UsersComponent
+    UsersComponent,
+    HospitalsComponent,
+    DoctorsComponent,
+    DoctorComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +43,7 @@ import { UsersComponent } from './maintenance/users/users.component';
     SharedModule,
     RouterModule,
     ComponentsModule,
+    PipesModule,
   ],
   exports: [
     DashboardComponent,

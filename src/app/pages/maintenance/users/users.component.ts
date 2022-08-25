@@ -105,7 +105,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.searchService.search('users', term).subscribe({
-      next: (resp) => {
+      next: (resp:any) => {
         this.users = resp;
         this.actualPage = 1;
         this.totalPages = 1;
