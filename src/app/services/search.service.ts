@@ -63,4 +63,9 @@ export class SearchService {
         }),
       )
   }
+
+  searchAll(term: string) {
+    const url = `${base_url}/all/${term}`;
+    return this.http.get(url, this.headers);
+  }
 }

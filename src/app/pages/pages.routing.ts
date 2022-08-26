@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from '@angular/router';
 
+import { AdminGuard } from '../guards/admin.guard';
 import { AuthGuard } from "../guards/auth.guard";
 
 import { AccountSettingsComponent } from "./account-settings/account-settings.component";
@@ -15,6 +16,7 @@ import { PromisesComponent } from "./promises/promises.component";
 import { RxjsComponent } from "./rxjs/rxjs.component";
 import { UsersComponent } from "./maintenance/users/users.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
+import { SearchComponent } from "./search/search.component";
 
 const routes: Routes = [
 
@@ -25,6 +27,7 @@ const routes: Routes = [
         children: [
             { path: '', component: DashboardComponent, data: {title: 'Dashboard'} },
             { path: 'account-settings', component: AccountSettingsComponent, data: { title: 'Ajustes' } },
+            { path: 'buscar/:term', component: SearchComponent, data: { title: 'Buscar' } },
             { path: 'charts', component: Grafica1Component, data: { title: 'Gráfica' } },
             { path: 'progress', component: ProgressComponent, data: { title: 'Progress Bar' } },
             { path: 'promises', component: PromisesComponent, data: { title: 'Promesas' } },
@@ -32,10 +35,10 @@ const routes: Routes = [
             { path: 'rxjs', component: RxjsComponent, data: { title: 'Observables' } },
 
             // MANTEINANCE
-            { path: 'usuarios', component: UsersComponent, data: { title: 'Usuarios' } },
+            { path: 'usuarios', component: UsersComponent, canActivate:[AdminGuard], data: { title: 'Usuarios' } },
             { path: 'hospitales', component: HospitalsComponent, data: { title: 'Hospitales' } },
             { path: 'medicos', component: DoctorsComponent, data: { title: 'Médicos' } },
-            { path: 'medico/:id', component: DoctorComponent, data: { title: 'Médicos' } },
+            { path: 'medico/:id', component: DoctorComponent, data: { title: 'Médico' } },
         ]
     },
 

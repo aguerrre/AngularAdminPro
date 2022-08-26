@@ -25,6 +25,10 @@ export class UserService {
     return localStorage.getItem('token') || '';
   }
 
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
+    return this.user.role!;
+  }
+
   get uid(): string {
     return this.user.uid || '';
   }
@@ -37,6 +41,11 @@ export class UserService {
     };
   }
 
+  private saveLocalStorage(token: string, menu: any) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
+  }
+
   validateToken(): Observable<boolean> {
     return this.http.get(`${base_url}/auth/renew`,
       {
@@ -47,7 +56,7 @@ export class UserService {
         tap((resp: any) => {
           const { first_name, email, img, google_auth, role, uid } = resp.user;
           this.user = new User(first_name, email, '', img, google_auth, role, uid);
-          localStorage.setItem('token', resp.token);
+          this.saveLocalStorage(resp.token, resp.menu);
         }),
         map(resp => true),
         catchError(error => of(false))
@@ -78,7 +87,7 @@ export class UserService {
     return this.http.post(`${base_url}/users`, formData)
       .pipe(
         tap((resp: any) => {
-          localStorage.setItem('token', resp.token);
+          this.saveLocalStorage(resp.token, resp.menu);
         })
       );
   }
@@ -104,7 +113,7 @@ export class UserService {
     return this.http.post(`${base_url}/auth/login`, formData)
       .pipe(
         tap((resp: any) => {
-          localStorage.setItem('token', resp.token);
+          this.saveLocalStorage(resp.token, resp.menu);
         })
       );
   }
@@ -113,17 +122,22 @@ export class UserService {
     return this.http.post(`${base_url}/auth/google`, { token })
       .pipe(
         tap((resp: any) => {
-          localStorage.setItem('token', resp.token);
+          this.saveLocalStorage(resp.token, resp.menu);
         })
       );
   }
 
   logout() {
     localStorage.removeItem('token');
-    google.accounts.id.revoke('maxixa92@gmail.com', () => {
-      this.ngZone.run(() => {
-        this.router.navigateByUrl('/login');
-      })
-    })
+    localStorage.removeItem('menu');
+    if (!this.user.google_auth) {
+      this.router.navigateByUrl('/login');
+    } else {
+      google.accounts.id.revoke(this.user.email, () => {
+        this.ngZone.run(() => {
+          this.router.navigateByUrl('/login');
+        })
+      });
+    }
   }
 }
