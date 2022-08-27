@@ -6,6 +6,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { ProgressIncrementComponent } from './progress-increment/progress-increment.component';
 import { FormsModule } from '@angular/forms';
 import { DoughnutComponent } from './doughnut/doughnut.component';
+import { ModalImgComponent } from './modal-img/modal-img.component';
 
 
 
@@ -13,6 +14,7 @@ import { DoughnutComponent } from './doughnut/doughnut.component';
   declarations: [
     ProgressIncrementComponent,
     DoughnutComponent,
+    ModalImgComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,7 @@ import { DoughnutComponent } from './doughnut/doughnut.component';
   exports: [
     ProgressIncrementComponent,
     DoughnutComponent,
+    ModalImgComponent,
   ]
 })
 export class ComponentsModule { }
